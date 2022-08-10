@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Connect and interface with the public online files">
+
+<title>spd_api - EA SPD</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="spd_api - EA SPD">
+<meta property="og:description" content="Connect and interface with the public online files">
+<meta property="og:site-name" content="spd_api">
+<meta name="twitter:title" content="spd_api - EA SPD">
+<meta name="twitter:description" content="Connect and interface with the public online files">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">spd_api</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/CJP123/spd_api/"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">EA SPD</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">SPD API</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./spd.html" class="sidebar-item-text sidebar-link active">EA SPD</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#extract_spd_list" id="toc-extract_spd_list" class="nav-link active" data-scroll-target="#extract_spd_list">extract_spd_list</a></li>
+  <li><a href="#main_spd" id="toc-main_spd" class="nav-link" data-scroll-target="#main_spd">main_spd</a></li>
+  <li><a href="#get_spd" id="toc-get_spd" class="nav-link" data-scroll-target="#get_spd">get_spd</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/CJP123/spd_api/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">EA SPD</h1>
+</div>
+
+<div>
+  <div class="description">
+    Connect and interface with the public online files
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<p>Call the EA website based on <code>year</code> to get available files</p>
+<hr>
+<section id="extract_spd_list" class="level4">
+<h4 class="anchored" data-anchor-id="extract_spd_list">extract_spd_list</h4>
+<blockquote class="blockquote">
+<pre><code> extract_spd_list (year)</code></pre>
+</blockquote>
+<p>Get list of available downloads from the casefiles</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>extract_spd_list(<span class="dv">2022</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Date modified</th>
+      <th>File size</th>
+      <th>file_size</th>
+    </tr>
+    <tr>
+      <th>file_date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2022-01-01</th>
+      <td>MSS_311112021121100996_0X.ZIP</td>
+      <td>01 Jan 2022</td>
+      <td>6,380 KB</td>
+      <td>6380</td>
+    </tr>
+    <tr>
+      <th>2022-01-02</th>
+      <td>MSS_11112022011100274_0X.ZIP</td>
+      <td>04 Jan 2022</td>
+      <td>6,426 KB</td>
+      <td>6426</td>
+    </tr>
+    <tr>
+      <th>2022-01-03</th>
+      <td>MSS_21112022011100481_0X.ZIP</td>
+      <td>03 Jan 2022</td>
+      <td>6,457 KB</td>
+      <td>6457</td>
+    </tr>
+    <tr>
+      <th>2022-01-04</th>
+      <td>MSS_31112022011100206_0X.ZIP</td>
+      <td>04 Jan 2022</td>
+      <td>6,458 KB</td>
+      <td>6458</td>
+    </tr>
+    <tr>
+      <th>2022-01-05</th>
+      <td>MSS_41112022011100952_0X.ZIP</td>
+      <td>05 Jan 2022</td>
+      <td>6,453 KB</td>
+      <td>6453</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2022-08-06</th>
+      <td>MSS_51112022081200827_0X.ZIP</td>
+      <td>07 Aug 2022</td>
+      <td>6,100 KB</td>
+      <td>6100</td>
+    </tr>
+    <tr>
+      <th>2022-08-07</th>
+      <td>MSS_61112022081200811_0X.ZIP</td>
+      <td>07 Aug 2022</td>
+      <td>6,083 KB</td>
+      <td>6083</td>
+    </tr>
+    <tr>
+      <th>2022-08-08</th>
+      <td>MSS_71112022081200614_0X.ZIP</td>
+      <td>08 Aug 2022</td>
+      <td>6,165 KB</td>
+      <td>6165</td>
+    </tr>
+    <tr>
+      <th>2022-08-09</th>
+      <td>MSS_81112022081200441_0X.ZIP</td>
+      <td>09 Aug 2022</td>
+      <td>6,219 KB</td>
+      <td>6219</td>
+    </tr>
+    <tr>
+      <th>2022-08-10</th>
+      <td>MSS_91112022081200157_0X.ZIP</td>
+      <td>10 Aug 2022</td>
+      <td>6,245 KB</td>
+      <td>6245</td>
+    </tr>
+  </tbody>
+</table>
+<p>222 rows × 4 columns</p>
+</div>
+</div>
+</div>
+<p>Test operation with one day</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>available_days <span class="op">=</span> extract_spd_list(<span class="dv">2022</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>zip_file <span class="op">=</span> httpx.get(<span class="ss">f'https://www.emi.ea.govt.nz/Wholesale/Datasets/FinalPricing/CaseFiles/2022/</span><span class="sc">{</span>available_days<span class="sc">.</span>iloc[<span class="dv">0</span>]<span class="sc">.</span>Name<span class="sc">}</span><span class="ss">'</span>, follow_redirects<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">file</span> <span class="op">=</span> ZipFile(BytesIO(zip_file.content))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>_bus(<span class="bu">file</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>INTERVAL</th>
+      <th>ID_BUS</th>
+      <th>ID_ST</th>
+      <th>LOAD</th>
+      <th>GENERATION</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2022-01-01 00:00:00</td>
+      <td>100</td>
+      <td>MVE</td>
+      <td>0.000000</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2022-01-01 00:00:00</td>
+      <td>101</td>
+      <td>MVE</td>
+      <td>0.000000</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2022-01-01 00:00:00</td>
+      <td>102</td>
+      <td>RTO</td>
+      <td>0.000000</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2022-01-01 00:00:00</td>
+      <td>103</td>
+      <td>CBG</td>
+      <td>19.943001</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2022-01-01 00:00:00</td>
+      <td>104</td>
+      <td>CBG</td>
+      <td>0.000000</td>
+      <td>0.0000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>939</th>
+      <td>2022-01-01 23:30:00</td>
+      <td>95</td>
+      <td>ARI</td>
+      <td>0.000000</td>
+      <td>4.9120</td>
+    </tr>
+    <tr>
+      <th>940</th>
+      <td>2022-01-01 23:30:00</td>
+      <td>96</td>
+      <td>ARI</td>
+      <td>0.000000</td>
+      <td>15.3333</td>
+    </tr>
+    <tr>
+      <th>941</th>
+      <td>2022-01-01 23:30:00</td>
+      <td>97</td>
+      <td>ARI</td>
+      <td>0.000000</td>
+      <td>15.3333</td>
+    </tr>
+    <tr>
+      <th>942</th>
+      <td>2022-01-01 23:30:00</td>
+      <td>98</td>
+      <td>ARI</td>
+      <td>0.000000</td>
+      <td>15.3333</td>
+    </tr>
+    <tr>
+      <th>943</th>
+      <td>2022-01-01 23:30:00</td>
+      <td>99</td>
+      <td>ARI</td>
+      <td>0.000000</td>
+      <td>0.0000</td>
+    </tr>
+  </tbody>
+</table>
+<p>45014 rows × 5 columns</p>
+</div>
+</div>
+</div>
+<p>Want to speed up downloads - use httpx async</p>
+<hr>
+</section>
+<section id="main_spd" class="level4">
+<h4 class="anchored" data-anchor-id="main_spd">main_spd</h4>
+<blockquote class="blockquote">
+<pre><code> main_spd (spd_df, year)</code></pre>
+</blockquote>
+<hr>
+</section>
+<section id="get_spd" class="level4">
+<h4 class="anchored" data-anchor-id="get_spd">get_spd</h4>
+<blockquote class="blockquote">
+<pre><code> get_spd (client, url)</code></pre>
+</blockquote>
+<p>Connect and download a month at a time</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>month, year <span class="op">=</span> <span class="dv">1</span> , <span class="dv">2022</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>spd_df <span class="op">=</span> extract_spd_list(year)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>branch, bus <span class="op">=</span> <span class="cf">await</span> main_spd(spd_df.loc[<span class="ss">f'</span><span class="sc">{</span>year<span class="sc">}</span><span class="ss">-</span><span class="sc">{</span>month<span class="sc">}</span><span class="ss">'</span>], year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2022</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>(                INTERVAL               BRANCHNAME FROM_STATION TO_STATION  \
+ 0    2022-01-01 00:00:00         ABY     MXT1MXT1          ABY        ABY   
+ 1    2022-01-01 00:00:00           ABY     T2  T2          ABY        ABY   
+ 2    2022-01-01 00:00:00  ALB     ALB_HEN3      1          ALB        HEN   
+ 3    2022-01-01 00:00:00  ALB     ALB_HPI1      1          ALB        HPI   
+ 4    2022-01-01 00:00:00  ALB     ALB_SVL1      1          ALB        SVL   
+ ...                  ...                      ...          ...        ...   
+ 1077 2022-01-31 23:30:00           WTU     T4  T4          WTU        WTU   
+ 1078 2022-01-31 23:30:00         WVY     MXT1MXT1          WVY        WVY   
+ 1079 2022-01-31 23:30:00           WVY     T1  T1          WVY        WVY   
+ 1080 2022-01-31 23:30:00           WWD     T1  T1          WWD        WWD   
+ 1081 2022-01-31 23:30:00           WWD     T2  T2          WWD        WWD   
+ 
+         FROM_MW      TO_MW  BRANCHLOSSES  
+ 0      0.000000   0.000000       0.00000  
+ 1     -4.597000  -4.606000       0.01446  
+ 2    -18.837000 -18.860001       0.02267  
+ 3     13.488000  13.478000       0.00905  
+ 4     14.881000  14.872000       0.00912  
+ ...         ...        ...           ...  
+ 1077  19.447001  19.407000       0.06421  
+ 1078   0.000000   0.000000       0.00000  
+ 1079   2.808000   2.799000       0.01193  
+ 1080  -0.318000  -0.318000       0.00000  
+ 1081  -2.753000  -2.753000       0.00000  
+ 
+ [1612512 rows x 7 columns],
+                INTERVAL ID_BUS ID_ST       LOAD  GENERATION
+ 0   2022-01-01 00:00:00    100   MVE   0.000000      0.0000
+ 1   2022-01-01 00:00:00    101   MVE   0.000000      0.0000
+ 2   2022-01-01 00:00:00    102   RTO   0.000000      0.0000
+ 3   2022-01-01 00:00:00    103   CBG  19.943001      0.0000
+ 4   2022-01-01 00:00:00    104   CBG   0.000000      0.0000
+ ..                  ...    ...   ...        ...         ...
+ 930 2022-01-31 23:30:00     95   ARI   0.000000     15.3333
+ 931 2022-01-31 23:30:00     96   ARI   0.000000     15.3333
+ 932 2022-01-31 23:30:00     97   ARI   0.000000     15.3333
+ 933 2022-01-31 23:30:00     98   ARI   0.000000      0.0000
+ 934 2022-01-31 23:30:00     99   MVE   0.000000      0.0000
+ 
+ [1392881 rows x 5 columns])</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

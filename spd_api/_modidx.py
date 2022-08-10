@@ -32,7 +32,7 @@ d = { 'settings': { 'allowed_cell_metadata_keys': '',
                 'title': 'spd_api',
                 'tst_flags': 'notest',
                 'user': 'CJP123',
-                'version': '0.0.7'},
+                'version': '0.0.9'},
   'syms': { 'spd_api.spd': { 'spd_api.spd.extract_spd_list': 'https://CJP123.github.io/spd_api/spd.html#extract_spd_list',
                              'spd_api.spd.get_spd': 'https://CJP123.github.io/spd_api/spd.html#get_spd',
                              'spd_api.spd.main_spd': 'https://CJP123.github.io/spd_api/spd.html#main_spd'}}}
